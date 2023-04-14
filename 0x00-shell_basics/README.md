@@ -14,3 +14,4 @@ Here's what each script is doing
 11-lists, script to list all files (including hidden files) in the current directory, parent directory and /boot directory, in long format
 12-file_type, script to check the file type of file iamafile
 Script to copy html files in current directory to parent directory, copying only files that did not already exist in the parent directory or a newer than the version in the parent directory
+100-lets_move, script to move all files beginning with an uppercase to directory /tmp/u
