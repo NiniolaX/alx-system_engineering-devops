@@ -6,3 +6,4 @@ I'm learning shell permissions, this is fun
 4-empty, creates an empty file hello
 5-execute, adds execute permission to owner of file hello
 6-multiple_permissions, adds execute permission to owner and group owners and adds read permission to other users
+7-everybody, adds execution permission to owner, group owner and others without commas in the command
