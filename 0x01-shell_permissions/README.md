@@ -8,3 +8,4 @@ I'm learning shell permissions, this is fun
 6-multiple_permissions, adds execute permission to owner and group owners and adds read permission to other users
 7-everybody, adds execution permission to owner, group owner and others without commas in the command
 8-James_Bond, sets no permission to owner and group owner, and all permissions to others
+9-John_Doe, set mode of file hello to -rwxr-x-wx
