@@ -7,3 +7,4 @@ Here's what each script is doing
 4-listmorefiles, list directory contents including hidden files in long format
 5-listfilesdigitonly, script to list files in long format with user and group IDs displayed numerically
 6-firstdirectory, script to create directory my_first_directory in the /tmp/ directory
+7-movethatfile,script to move the file betty from /tmp/ to /tmp/my_first_directory
