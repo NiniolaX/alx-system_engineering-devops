@@ -11,3 +11,4 @@ Here's what each script is doing
 8-firstdelete, script to delete file betty in new location
 9-firstdirdeletion, script to delete directory /tmp/my_first_directory
 10-back, script to change working directory to previous one
+11-lists, script to list all files (including hidden files) in the current directory, parent directory and /boot directory, in long format
