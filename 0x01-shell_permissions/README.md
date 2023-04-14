@@ -4,3 +4,4 @@ I'm learning shell permissions, this is fun
 2-groups, prints all groups the current user is a part of
 3-new_owner, changes owner of file hello to betty
 4-empty, creates an empty file hello
+5-execute, adds execute permission to owner of file hello
