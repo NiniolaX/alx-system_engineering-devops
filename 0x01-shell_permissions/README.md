@@ -9,3 +9,4 @@ I'm learning shell permissions, this is fun
 7-everybody, adds execution permission to owner, group owner and others without commas in the command
 8-James_Bond, sets no permission to owner and group owner, and all permissions to others
 9-John_Doe, set mode of file hello to -rwxr-x-wx
+11-directories_permission, adds execute permission to all subdirectories in the current directory for owner, group owner and others
