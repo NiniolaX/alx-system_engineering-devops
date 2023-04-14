@@ -5,3 +5,4 @@ Here's what each script is doing
 2-bring_me_home, changes working directory to user's home directory
 3-listfiles, list directory contents in long format
 4-listmorefiles, list directory contents including hidden files in long format
+5-listfilesdigitonly, script to list files in long format with user and group IDs displayed numerically
