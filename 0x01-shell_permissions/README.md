@@ -5,3 +5,4 @@ I'm learning shell permissions, this is fun
 3-new_owner, changes owner of file hello to betty
 4-empty, creates an empty file hello
 5-execute, adds execute permission to owner of file hello
+6-multiple_permissions, adds execute permission to owner and group owners and adds read permission to other users
