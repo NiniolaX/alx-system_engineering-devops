@@ -10,3 +10,4 @@ Here's what each script is doing
 7-movethatfile,script to move the file betty from /tmp/ to /tmp/my_first_directory
 8-firstdelete, script to delete file betty in new location
 9-firstdirdeletion, script to delete directory /tmp/my_first_directory
+10-back, script to change working directory to previous one
