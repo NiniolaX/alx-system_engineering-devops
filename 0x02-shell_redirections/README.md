@@ -3,3 +3,5 @@ This directory has the solutions to the ALX Shell I/O Redirections and filters p
 Here is what each script is doing:
 
 0-hello_world, prints "Hello, world"
+
+1-confused_smiley, prints a confused smiley
