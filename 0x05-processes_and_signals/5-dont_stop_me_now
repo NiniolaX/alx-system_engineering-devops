@@ -2,5 +2,5 @@
 # This script terminates the 4-to_infinity_and_beyond process
 
 for pid in $(pgrep -f "4-to_infinity_and_beyond process"); do
-    kill "$pid"
+    kill  -9 "$pid"
 done
