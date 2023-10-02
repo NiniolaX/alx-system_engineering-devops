@@ -9,7 +9,7 @@
 sigterm_handler()
 {
     echo "I hate the kill command"
-    sigquit()
+    sigquit_handler
 }
 sigint_handler()
 {
