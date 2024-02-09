@@ -10,3 +10,5 @@ This repository contains my code for the ALX Regular Expressions project.
 	occurences of 'b'.
 4. 3-repetition_token_2.rb - Script contains regex to match 'hbtn' with 1 or
 	more occurences of 't'.
+5. 4-repetition_token_3.rb - Script contains regex to match 'hbtn' with 0 or
+	more occurences of 't'.
