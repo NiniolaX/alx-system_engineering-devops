@@ -11,4 +11,10 @@ This repository contains my code for the ALX Regular Expressions project.
 4. 3-repetition_token_2.rb - Script contains regex to match 'hbtn' with 1 or
 	more occurences of 't'.
 5. 4-repetition_token_3.rb - Script contains regex to match 'hbtn' with 0 or
-	more occurences of 't'.
+	more occurences of 't'
+6. 5-beginning_and_end.rb - Script contains regex that matches a string that
+	starts with 'h', ends with 'n' and contains a single character between
+7. 6-phone_number.rb - Script contains regex that matches a 10-digit phone
+	number.
+8. 7-OMG_WHY_ARE_YOU_SHOUTING.rb - Script contains regex that matches only
+	capital letters.
