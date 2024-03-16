@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Copies a file from client (local machine) to remote server
+if [ "$#" -lt 4 ]; then
+	echo "Usage: $0 PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
+	exit 1
+fi
+
+file_path="$1"
+ip="$2"
+user="$3"
+private_key="$4"
+scp -i "$private_key" "$file_path" "$user@$ip":~
