@@ -9,4 +9,4 @@ file_path="$1"
 ip="$2"
 user="$3"
 private_key="$4"
-scp -i "$private_key" "$file_path" "$user@$ip":~
+scp -o StrictHostChecking=no -i "$private_key" "$file_path" "$user@$ip":~/
