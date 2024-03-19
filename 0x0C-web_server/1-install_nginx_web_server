@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Installs Nginx on a web server and configures it to listen on port 80
+# Installs Nginx on a web server and configures it
 
 # Get package updates
 sudo apt-get -y update
