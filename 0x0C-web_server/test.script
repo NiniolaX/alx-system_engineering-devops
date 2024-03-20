@@ -1,0 +1,19 @@
+server {
+	# Set which port server should listen on
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	# Set directory for server to serve files from
+	root /var/html/www;
+
+	# Define pages to server when root is requested
+	index index.html index.htm index.nginx-debian.html
+
+	# Specify server names for which server block will handle requests
+	server_name _;
+
+	# Defines the behaviour of requests to the root directory
+	location / {
+		try_files $uri $uri/ =404;
+	}
+}
