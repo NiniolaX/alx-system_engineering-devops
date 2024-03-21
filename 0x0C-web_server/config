@@ -13,6 +13,9 @@ server {
 	server_name _;
 
 	# Defines the behaviour of requests to the root directory
+/	location /redirect_me/ {
+		return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+	}
 	location / {
 		try_files $uri $uri/ =404;
 	}
