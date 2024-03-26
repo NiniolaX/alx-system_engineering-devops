@@ -2,7 +2,7 @@
 # Script pings an IP address passed as an argument to it 5 times
 
 # Checks that script receives an argument
-if [ "$#" -eq 1 ]; then
+if [ "$#" -eq 0 ]; then
 	echo "Usage: $0 {IP_ADDRESS}"
 	exit 1
 fi
