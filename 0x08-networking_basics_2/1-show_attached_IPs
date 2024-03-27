@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# This script displays all active IPv4 addreses on the machine it is executed on
+
+# One network interface from ifconfig output looks like this
+#lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+#       inet 127.0.0.1  netmask 255.0.0.0
+#       inet6 ::1  prefixlen 128  scopeid 0x10<host>
+#       loop  txqueuelen 1000  (Local Loopback)
+#       RX packets 0  bytes 0 (0.0 B)
+#       RX errors 0  dropped 0  overruns 0  frame 0
+#       TX packets 0  bytes 0 (0.0 B)
+#       TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+# Method 1: We extract the second column of the line containing the string 'inet'
+ifconfig | awk '/inet / {print $2}'
+
+# Method 2: Use grep to pipe only lines containing 'inet' and extract only addresses with cut
+#ifconfig | grep 'inet ' | cut -d ' ' -f 10
