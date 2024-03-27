@@ -12,7 +12,7 @@
 #       TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
 
 # Method 1: We extract the second column of the line containing the string 'inet'
-ifconfig | awk '/inet / {print $2}'
+#ifconfig | awk '/inet / {print $2}'
 
 # Method 2: Use grep to pipe only lines containing 'inet' and extract only addresses with cut
-#ifconfig | grep 'inet ' | cut -d ' ' -f 10
+ifconfig | grep 'inet ' | cut -d ' ' -f 10
