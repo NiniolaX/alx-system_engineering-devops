@@ -2,16 +2,16 @@
 # Script configures an Ubuntu server with certain requirements
 
 # Create a copy of /etc/hosts file
-cp /etc/hosts /etc/hosts.tmp
+cp /etc/hosts ~/hosts.tmp
 
 # Resolve local host to 127.0.0.2 in copy
-sed -i 's/127.0.0.1\tlocalhost/127.0.0.2\tlocalhost' /etc/hosts.tmp
+sed -i 's/127.0.0.1\tlocalhost/127.0.0.2\tlocalhost' ~/hosts.tmp
 
 # Resolve facebook.com to 8.8.8.8 in copy
-sed -i '$a\8.8.8.8\tfacebook.com' /etc/hosts.tmp
+sed -i '$a\8.8.8.8\tfacebook.com' ~/hosts.tmp
 
 # Copy /etc/hosts copy into main
-cp /etc/hosts.tmp /etc/hosts
+cp ~/hosts.tmp /etc/hosts
 
 # Delete copy of /etc/hosts file
-rm /etc/hosts.tmp
+rm ~/hosts.tmp
