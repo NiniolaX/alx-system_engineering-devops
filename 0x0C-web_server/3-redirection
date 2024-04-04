@@ -14,8 +14,7 @@ sudo ufw allow 'Nginx HTTP'
 echo 'Hello World!' | sudo tee /var/www/html/index.html
 
 # Initiate redirection
-string="\n\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}\n"
-sudo awk -i inplace -v string_to_append="$string" '/server_name _/ {print; print string_to_append; next} 1' /etc/nginx/sites-available/default
+sudo sed -i '/server_name _/a rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
 
 # Restart Nginx
 sudo service nginx restart
