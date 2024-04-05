@@ -22,7 +22,7 @@ echo "Ceci n'est pas une page" | sudo tee /var/www/html/custom_404.html
 
 # Direct 404 Errors to custom page
 error_directive="\n\terror_page 404 /custom_404.html;\n\tlocation = /custom_404.html {\n\t\troot /var/www/html;\n\t\tinternal;\n\t}"
-sed -i "/rewrite/a\ $error_directive" /etc/nginx/sites-available/default
+sudo sed -i "/rewrite/a\ $error_directive" /etc/nginx/sites-available/default
 
 # Awk -i option not available on all versions of awk
 #sudo awk -i inplace -v string_to_replace="$string" '/rewrite/ {print; print string_to_replace; next} 1' config
