@@ -14,7 +14,7 @@ sudo apt -y install haproxy=2.0.\*
 # Configure HAproxy
 echo "
 frontend haproxy-main
-	bind :80
+	bind *:80
 	default_backend ninis_servers
 
 backend ninis_servers
