@@ -21,7 +21,7 @@ backend ninis_servers
 	balance roundrobin
 	server 398697-web-01 18.214.89.1:80 check
 	server 398697-web-02 54.89.182.48:80 check
-" | sudo tee -a /etc/haproxy/haproxy.cfg > /dev/null
+" | sudo tee -a /etc/haproxy/haproxy.cfg
 
 # Restart haproxy
 sudo service haproxy restart
