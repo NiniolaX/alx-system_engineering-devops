@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Configures an Nginx server to display a HTTP custom response header showing the hostname of the server
+custom_header_directive="\tadd_header X-Served-By \"\$hostname\";"
+sed -i "/http {/a\ $custom_header_directive" test
+
+# Restart nginx
+#sudo service nginx restart
