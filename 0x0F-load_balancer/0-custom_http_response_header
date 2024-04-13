@@ -1,5 +1,33 @@
 #!/usr/bin/env bash
-# Configures an Nginx server to display a HTTP custom response header showing the hostname of the server
+# Configures a new Ubuntu machine, such that:
+#	- nginx is installed and listening on port 80,
+#	- when querying Nginx at its root, it returns a page containing "Hello World!"
+#	- /redirect_me is redirecting to another page with a 301 error
+#	- nginx has a custom 404 page containing the string "Ceci n'est pas une page"
+#	- when queried, it display a HTTP custom response header showing the hostname of the server
+
+# Get package updates
+sudo apt-get -y update
+
+# Install nginx
+sudo apt-get -y install nginx
+
+# Configure Nginx to listen on port 80
+sudo ufw allow 'Nginx HTTP'
+
+# Configure Nginx to serve a page displaying 'Hello World!" when root is queried
+echo "Hello World!" | sudo tee /var/www/html/index.html
+
+# Configure Nginx such that /rediret_me is redirecting to another page
+rewrite_directive="\trewrite ^redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;"
+sudo sed -i "/server_name _/a\ $rewrite_directive" /etc/nginx/sites-available/default
+
+# Configure Nginx to display custom error page
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/custom_404.html
+error_directive="\n\terror_page 404 /custom_404.html;\n\tlocation = /custom_404.html {\n\t\troot /var/www/html;\n\t}"
+sudo sed -i "/rewrite/a\ $error_directive" /etc/nginx/sites-available/default
+
+# Add custom header directive
 custom_header_directive="\tadd_header X-Served-By \"\$hostname\";"
 sudo sed -i "/http {/a\ $custom_header_directive" /etc/nginx/nginx.conf
 
