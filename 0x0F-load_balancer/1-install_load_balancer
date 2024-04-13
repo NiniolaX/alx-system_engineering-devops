@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Configures a new Ubuntu machine to ask as a load balancer
+
+# Update packages
+sudo apt -y update
+
+# Enable dedicated PPA
+sudo apt -y install --no-install-recommends software-properties-common
+sudo add-apt repository ppa:vbernat/haproxy-2.0
+
+# Install HAproxy
+sudo apt -y install haproxy=2.0.\*
+
+# Configure HAproxy
+echo "
+frontend www
+	bind :80
+	default_backend ninis_servers
+backend ninis_servers
+	server 398697-web-01 18.214.89.1:80 check
+	server 398697-web-02 54.89.182.48:80 check
+" | sudo tee -a /etc/haproxy/haproxy.cfg > /dev/null
+
+# Restart haproxy
+sudo service haproxy restart
