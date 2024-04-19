@@ -5,7 +5,7 @@
 sudo cp /etc/hosts ~/hosts.tmp
 
 # Resolve local host to 127.0.0.2 in copy
-sed -i "s/127.0.0.1\tlocalhost/127.0.0.2\tlocalhost/" ~/hosts.tmp
+sed -i 's/127.0.0.1\tlocalhost/127.0.0.2\tlocalhost/' ~/hosts.tmp
 
 # Resolve facebook.com to 8.8.8.8 in copy
 sed -i '$a\8.8.8.8\tfacebook.com' ~/hosts.tmp
