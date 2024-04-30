@@ -1,0 +1,45 @@
+Diagram: https://imgur.com/gallery/xqlnwNo
+
+1. What is a server?
+A server is a program or device that offers a service to another program or
+device called a "client".
+
+2. What is the role of a domain name?
+A domain name is used to identify and access resources on the internet.
+
+3. What type of DNS record is 'www' in www.foobar.com?
+It is a CNAME record. In this case, it maps the 'www' subdomain to the domain
+name foobar.com.
+
+4. What is the role of the web server?
+The web server handles HTTP requests. It listens for incoming HTTP requests.
+When it receives an HTTP request, it processes it and responds with an 'HTTP
+response'. It processes requests by serving requested web content (or pages) to
+clients directly (if static), or by delegating generation of requested content
+to some other server-side technology such as an application server or a script.
+
+5. What is the role of the application server?
+The application server serves business logic (i.e. pricing lookup, user data
+update, etc) to it's "clients". These 'clients' could include client
+application, a web server or even other application serers.
+
+6. What is the role of a database?
+In the context of my web infrastructure, the role of the database is to store
+relevant data associated with the website, and to facilitate easy access,
+retrieval, updation, management and security of the data.
+
+7. What is the server using to communicate with the computer of the user
+requesting the website? 
+The server uses HTTP to communicate with the computer of the user requesting
+the website.
+
+ISSUES WITH THE INFRASTRUCTURE
+1. SPOF: The server is a single point of failure, if it is unreachable or runs
+into problems, the entire application will fail.
+2. Low reliability: Only one server is present in this architecture, thus,
+during high traffic times, users may experience slow response time or downtime.
+3. Difficult to maintain: All components of the backend infrastructure is kept
+on a single server, so there will be downtime if a particular component
+(i.e application server) needs to be maintained or scaled.
+4. Low security: The server isn't protected by a firewall  which opens it up
+to security threats.
