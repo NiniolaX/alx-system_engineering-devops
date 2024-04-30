@@ -1,4 +1,4 @@
-Diagram: https://imgur.com/gallery/xqlnwNo
+Diagram: https://imgur.com/a/HnhOXjo
 
 1. What is a server?
 A server is a program or device that offers a service to another program or
@@ -37,8 +37,8 @@ ISSUES WITH THIS INFRASTRUCTURE
 1. SPOF: The server is a single point of failure, if it is unreachable or runs
 into problems, the entire application will fail.
 2. Low reliability: Only one server is present in this architecture, thus,
-during high traffic times, users may experience slow response time or even web
-application crash.
+during high traffic times, users may experience slow response time or web
+application may crash.
 3. Difficult to maintain: All components of the backend infrastructure is kept
 on a single server, so there will be downtime if a particular component
 (i.e application server) needs to be maintained or scaled.
