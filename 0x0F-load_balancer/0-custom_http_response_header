@@ -19,7 +19,7 @@ sudo ufw allow 'Nginx HTTP'
 echo "Hello World!" | sudo tee /var/www/html/index.html
 
 # Configure Nginx such that /rediret_me is redirecting to another page
-rewrite_directive="\trewrite ^redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;"
+rewrite_directive="\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;"
 sudo sed -i "/server_name _/a\ $rewrite_directive" /etc/nginx/sites-available/default
 
 # Configure Nginx to display custom error page
