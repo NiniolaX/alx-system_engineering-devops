@@ -12,16 +12,14 @@ sudo apt -y update
 sudo apt -y install haproxy
 
 # Configure HAproxy
-echo "
-frontend haproxy-main
+echo "frontend haproxy-main
 	bind *:80
 	default_backend ninis_servers
 
 backend ninis_servers
 	balance roundrobin
-	server 398697-web-01 18.214.89.1:80 check
-	server 398697-web-02 54.89.182.48:80 check
-" | sudo tee -a /etc/haproxy/haproxy.cfg
+	server 398697-web-01 34.229.184.178:80 check
+	server 398697-web-02 54.83.138.88:80 check" | sudo tee -a /etc/haproxy/haproxy.cfg
 
 # Restart haproxy
 sudo service haproxy restart
