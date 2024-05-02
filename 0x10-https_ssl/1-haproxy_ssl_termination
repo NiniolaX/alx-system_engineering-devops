@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Script configures HAproxy to handle encrypted traffic, unencrypt it and pass it on to its destination.
+
+ssl_directive="\tbind *:443 ssl crt /etc/haproxy/certs/www.niniola.tech.pen\n\tredirect scheme https code 301 if !{ ssl_fc }"
+sudo sed -i "/^	bind \*:80/a\ $ssl_directive/" /etc/haproxy/haproxy.cfg
+
+sudo service haproxy restart
+sudo haproxy -f /etc/haproxy/haproxy.cfg -c > /dev/null 2>&1
+sudo openssl dhparam -out /etc/haproxy/dhparams.pem 2048 > /dev/null 2>&1
+sudo sed -i '/^global/s/$/ ssl-dh-param-file \/etc\/haproxy\/dhparams.pem/' /etc/haproxy/haproxy.cfg
+sudo service haproxy restart
