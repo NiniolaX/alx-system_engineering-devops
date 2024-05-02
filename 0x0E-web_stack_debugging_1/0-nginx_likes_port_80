@@ -2,9 +2,9 @@
 # Script fixes what's keeping Ubuntu container's Nginx configuration from listening on port 80
 
 ## Curl the server to see if Nginx works
-#if curl 0:80; then
-#	exit
-#fi
+if curl 0:80; then
+	exit
+fi
 
 # Check if Nginx is installed and running
 if ! sudo service nginx status; then
