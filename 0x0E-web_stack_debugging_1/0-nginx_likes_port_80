@@ -3,7 +3,7 @@
 
 # Service nginx was not installed - Install nginx
 sudo apt update
-sudo apt install y nginx
+sudo apt install -y nginx
 
 # Service not running - Start nginx
 sudo service nginx start
