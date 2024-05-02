@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Bash script that fixes a Ubuntu container supposed to be running nginx and listening on port 80 of all server's active IPv4 IPs to do same.
+
+# Service nginx was not installed - Install nginx
+sudo apt update
+sudo apt install y nginx
+
+# Service not running - Start nginx
+sudo service nginx start
