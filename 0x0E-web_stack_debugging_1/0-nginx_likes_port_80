@@ -10,15 +10,12 @@
 if ! sudo service nginx status; then
 	sudo apt -y update
 	sudo apt install -y nginx
-	sudo apt install -y ufw
-	sudo ufw allow 'HTTP Nginx'
 	sudo service nginx start
 fi
 
 # Check if Nginx is listening on port 80
 sudo apt install -y net-tools
 if ! sudo netstat -lpn | grep nginx | grep -q 0:80; then
-	sudo apt install -y ufw
-	sudo ufw allow 80/tcp
+	ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 	sudo service nginx restart
 fi
