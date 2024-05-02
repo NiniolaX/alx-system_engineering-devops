@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# This script displays information about subdomains
+
+# Define functions
+get_record_type () {
+	# Gets the record type of a subdomain
+	local domain="$1"
+	local subdomain="$2"
+	dig "$subdomain.$domain" | awk '/ANSWER SECTION:/ {getline; print $4}'
+}
+
+get_destination () {
+	# Gets the destination (IP) of a subdomain
+	local domain="$1"
+	local subdomain="$2"
+	dig "$subdomain.$domain" | awk '/ANSWER SECTION:/ {getline; print $5}'
+}
+
+display_subdomain_info () {
+	# Displays information of subdomain
+	local domain="$1"
+	local subdomain="$2"
+	echo "The subdomain $2 is a $(get_record_type "$1" "$2") record and points to $(get_destination "$1" "$2")"
+}
+
+# Check number of arguments
+domain="$1"
+if [ "$#" -eq 2 ]; then
+	display_subdomain_info "$domain" "$2"
+elif [ "$#" -eq 1 ]; then
+	subdomains=(www lb-01 web-01 web-02)
+	for subdomain in "${subdomains[@]}"; do
+		display_subdomain_info "$domain" "$subdomain"
+	done
+else
+	exit 1
+fi
