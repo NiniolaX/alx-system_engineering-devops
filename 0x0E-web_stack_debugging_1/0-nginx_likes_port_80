@@ -20,7 +20,7 @@ server {
 "
 
 # Check if Nginx is running and listening on port 80
-if ! sudo netstat -lpn | grep -q nginx | grep -q :80; then
+if ! (sudo netstat -lpn | grep -q nginx | grep -q :80); then
 	echo "Nginx is not listening on port 80"
 	# Echo Nginx configuration to default file
 	echo "$nginx_config" | sudo tee -a /etc/nginx/sites-available/default > /dev/null
