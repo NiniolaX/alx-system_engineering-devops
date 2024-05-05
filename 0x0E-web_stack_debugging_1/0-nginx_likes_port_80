@@ -1,34 +1,39 @@
 #!/usr/bin/env bash
 # Script fixes what's keeping Ubuntu container's Nginx configuration from listening on port 80
 
+sudo apt update -y
+sudo apt install nginx -y
+sudo ufw allow 'Nginx HTTP'
+sudo service nginx restart
+
 ## Curl the server to see if Nginx works
-if curl 0:80; then
-	exit
-fi
+# if curl 0:80; then
+# 	exit
+# fi
 
 # Check if Nginx is installed
-if ! dpkg -l | grep -q nginx; then
-	echo "Nginx is not installed. Installing nginx..."
-	sudo apt update -y
-	sudo apt install nginx -y
-	sudo service nginx start
-fi
-
-# Check if Nginx is running
-if ! sudo service nginx status; then
-	echo "$(sudo service nginx status). Restarting nginx..."
-	sudo service nginx restart
-fi
-
-# Check if Nginx is listening on port 80
-sudo apt install -y net-tools
-if ! sudo netstat -lpn | grep -q nginx | grep -q :80; then
-	if ! ufw -v; then
-		sudo apt install ufw -y
-	fi
-	sudo ufw allow 'Nginx HTTP'
-	if ! grep "listen 80;" /etc/nginx/sites-available/default; then
-		sudo sed -i '/^server {$/a\ 	listen 80;' /etc/nginx/sites-available/default
-	fi
-	sudo service nginx restart
-fi
+#if ! dpkg -l | grep -q nginx; then
+#	echo "Nginx is not installed. Installing nginx..."
+#	sudo apt update -y
+#	sudo apt install nginx -y
+#	sudo service nginx start
+#fi
+#
+## Check if Nginx is running
+#if ! sudo service nginx status; then
+#	echo "$(sudo service nginx status). Restarting nginx..."
+#	sudo service nginx restart
+#fi
+#
+## Check if Nginx is listening on port 80
+#sudo apt install net-tools -y
+#if ! sudo netstat -lpn | grep -q nginx | grep -q :80; then
+#	if ! ufw -v; then
+#		sudo apt install ufw -y
+#	fi
+#	sudo ufw allow 'Nginx HTTP'
+#	if ! grep "listen 80;" /etc/nginx/sites-available/default; then
+#		sudo sed -i '/^server {$/a\ 	listen 80;' /etc/nginx/sites-available/default
+#	fi
+#	sudo service nginx restart
+#fi
