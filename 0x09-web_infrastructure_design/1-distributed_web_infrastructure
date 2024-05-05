@@ -1,0 +1,48 @@
+Diagram: https://imgur.com/a/6CuPdzQ
+
+What are the additional elements in this infrastructure?
+1. A SECONDARY SERVER: I added this component to achieve redundancy in the
+system. This improves the reliability and availability of the system, as
+if one server needs to be maintained, all requests can be routed to the other
+server.
+2. A LOAD BALANCER: This was added to evenly distribute incoming traffic between
+the primary and secondary servers, leading to improved system performance.
+
+What distribution algorithm is the load balancer configured with and how does
+it work?
+My load balancer is configured with ROUND ROBIN algorithm. This algorithm
+distributes requests to servers in turns. For instance, the first request is
+sent to the primary server, and the second request to the secondary server,
+the third to the primary server, and so on.
+
+Is your load-balancer enabling Active-Active or Active-Passive setup?
+My load balancer is enabling ACTIVE-ACTIVE setup.
+In an Active-Active setup, both servers (primary and secondary) are handles
+incoming requests. However, in an Active-Passive setup, one server handles
+incoming requests while the other is on standby. A monitoring system is
+usually available between the two servers, such that if one fails, it is shut
+down (so requests are no longer sent to it), then the other server, formerly
+on standby, kicks into action.
+
+How does a database Primary-Replica (Master-Slave) Cluster works?
+In a Primary-Replica architecture, the primary node is responsible for
+handling operations all write operations (insert, update, delete), while
+the replica node is responsible for handling read operations.
+Once the Primary node completes a read operation, it replicates the
+information on all Replica nodes.
+
+What is the difference between the Primary node and the Replica node in regard
+to the application?
+The Primary Node handles all operations that require writing to the database,
+while the Replica Nodes handle operations that require reading from the
+database
+
+ISSUES WITH THIS INFRASTRUCTURE
+1. SPOF: The load balancer is a Single Point of Failure in this infrastruture.
+If it goes than or runs into problems, incoming requests from clients will
+not reach the backend servers.
+2. Security issues: The servers are exposed to secutiry attacks as they are
+protected by a firewall.
+3. No monitoring: There exists no system that checks the metrics of the
+servers, so if something goes wrong, requests may continue being served to
+an dysfunctional server!
