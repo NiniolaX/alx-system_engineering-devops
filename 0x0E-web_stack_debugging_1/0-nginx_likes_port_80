@@ -6,16 +6,29 @@ if curl 0:80; then
 	exit
 fi
 
-# Check if Nginx is installed and running
-if ! sudo service nginx status; then
-	sudo apt -y update
-	sudo apt install -y nginx
+# Check if Nginx is installed
+if ! dpkg -l | grep -q nginx; then
+	echo "Nginx is not installed. Installing nginx..."
+	sudo apt update -y
+	sudo apt install nginx -y
 	sudo service nginx start
+fi
+
+# Check if Nginx is running
+if ! sudo service nginx status; then
+	echo "$(sudo service nginx status). Restarting nginx..."
+	sudo service nginx restart
 fi
 
 # Check if Nginx is listening on port 80
 sudo apt install -y net-tools
-if ! sudo netstat -lpn | grep nginx | grep -q 0:80; then
-	ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+if ! sudo netstat -lpn | grep -q nginx | grep -q :80; then
+	if ! ufw -v; then
+		sudo apt install ufw -y
+	fi
+	sudo ufw allow 'Nginx HTTP'
+	if ! grep "listen 80;" /etc/nginx/sites-available/default; then
+		sudo sed -i '/^server {$/a\ 	listen 80;' /etc/nginx/sites-available/default
+	fi
 	sudo service nginx restart
 fi
