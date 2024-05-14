@@ -1,1 +1,15 @@
 #!/usr/bin/env bash
+# Script configures ubuntu container to meet the following requirements
+# - nginx running as 'nginx' user
+# - nginx must be listening on all active IPs on port 8080
+
+# Install nginx
+sudo apt update -y
+sudo apt install nginx -y
+sudo sed -i 's/80/8080/g' /etc/nginx/sites-available/default
+
+# Add nginx user
+sudo adduser nginx
+sudo sed -i 's/www-data/nginx/g' /etc/nginx/nginx.conf
+
+sudo service nginx restart
