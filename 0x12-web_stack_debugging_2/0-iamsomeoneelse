@@ -6,4 +6,4 @@ if [ "$#" -ne 1 ]; then
 fi
 
 user="$1"
-echo "$(id -un "$user")"
+id -un "$user"
