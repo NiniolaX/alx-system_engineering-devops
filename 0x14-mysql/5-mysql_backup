@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Backs up a MySQL database
+if [ "$#" -eq 0 ]; then
+	echo "Usage: $0 <password>"
+	exit 1
+fi
+
+MYSQL_PWD="$1"
+MYSQL_USER="root"
+BACKUP_FILE="backup.sql"
+
+# Run MySQL dump command
+mysqldump -u "$MYSQL_USER" -p"$MYSQL_PWD" --all-databases > "$BACKUP_FILE"
+
+# Check if mysqldump succeeded
+if ! mycmd; then
+	echo "mysqldump failed"
+	exit 1
+fi
+
+# Create archive of backup
+FORMATTED_DATE=$(date +%d-%m-%Y)
+tar -czvf "$FORMATTED_DATE".tar.gz "$BACKUP_FILE"
