@@ -8,7 +8,12 @@ import sys
 
 
 def get_employee_name(employee_id):
-    """ Returns the name of employee """
+    """ Returns the name of employee
+    Args:
+        employee_id(int): Empolyee's id
+    Return:
+        (str): Name of employee
+    """
     url = 'https://jsonplaceholder.typicode.com/users'
     try:
         response = requests.get(f'{url}/{employee_id}')
@@ -16,13 +21,18 @@ def get_employee_name(employee_id):
             employee = response.json()
             return employee.get('name')
         else:
-            print(f'Error fetching user: {response.status_code}')
+            print(f'Error fetching employee: {response.status_code}')
     except Exception as e:
         print(e)
 
 
 def get_employee_tasks(employee_id):
-    """ Returns all employees tasks """
+    """ Returns all employees tasks
+    Args:
+        employee_id(int): ID of employee
+    Return:
+        (list of dicts): List of all employee's tasks
+    """
     url = 'https://jsonplaceholder.typicode.com/todos'
     params = {'userId': employee_id}
     try:
@@ -31,16 +41,21 @@ def get_employee_tasks(employee_id):
             tasks = response.json()
             return tasks
         else:
-            print(f'Error fetching employee tasks: {response.status_code}')
+            print(f"Error fetching employee's tasks: {response.status_code}")
     except Exception as e:
         print(e)
 
 
 def get_tasks_done(tasks):
-    """ Returns titles of tasks done by an employee """
+    """ Returns titles of tasks done by an employee
+    Args:
+        (list of dicts): List of all employee's tasks
+    Return:
+        (list of dicts): List of all tasks completed by employee
+    """
     tasks_done = []
     for task in tasks:
-        if task.get('completed') = True:
+        if task.get('completed') == True:
             tasks_done.append(task)
     return tasks_done
 
@@ -54,14 +69,24 @@ def display_task_progress(name, number_of_tasks, number_of_completed_tasks,
         print(f'\t {title}')
 
 
-def main()
+def main():
     """
     Displays an employees TODO list progress using
     """
-    # Fetch employee
+    if len(sys.argv) != 2:
+        print(f'Usage: {sys.argv[0]} <employee_id>')
+        return 1
+
+    try:
+        employee_id = int(sys.argv[1])
+    except ValueError:
+        print('Invalid employee id')
+        return 1
+
+    # Get employee's name
     employee_name = get_employee_name(employee_id)
 
-    # Fetch employee's todos
+    # Fetch employee's tasks
     tasks = get_employee_tasks(employee_id)
     number_of_tasks = len(tasks)
 
