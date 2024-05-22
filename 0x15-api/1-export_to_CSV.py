@@ -1,25 +1,26 @@
 #!/usr/bin/python3
 """
-Contains a function that returns information about an employee's TODO list
-progress.
+Contains a function that returns all an employee's tasks and progress
+and exports them in CSV format.
 """
+import csv
 import requests
 import sys
 
 
-def get_employee_name(employee_id):
-    """ Returns the name of employee
+def get_employee_username(employee_id):
+    """ Returns the username of an employee
     Args:
         employee_id(int): Empolyee's id
     Return:
-        (str): Name of employee
+        (str): Username of employee
     """
     url = 'https://jsonplaceholder.typicode.com/users'
     try:
         response = requests.get(f'{url}/{employee_id}')
         if response.status_code == 200:
             employee = response.json()
-            return employee.get('name')
+            return employee.get('username')
         else:
             print(f'Error fetching employee: {response.status_code}')
     except Exception as e:
@@ -46,20 +47,6 @@ def get_employee_tasks(employee_id):
         print(e)
 
 
-def get_tasks_done(tasks):
-    """ Returns titles of tasks done by an employee
-    Args:
-        (list of dicts): List of all employee's tasks
-    Return:
-        (list of dicts): List of all tasks completed by employee
-    """
-    tasks_done = []
-    for task in tasks:
-        if task.get('completed') is True:
-            tasks_done.append(task)
-    return tasks_done
-
-
 def display_task_progress(name, number_of_tasks, number_of_completed_tasks,
                           titles):
     """ Prints the task progress of an employee """
@@ -67,6 +54,27 @@ def display_task_progress(name, number_of_tasks, number_of_completed_tasks,
     print(f'({number_of_completed_tasks}/{number_of_tasks}):')
     for title in titles:
         print(f'\t {title}')
+
+
+def write_data_to_csv(csv_file_path, tasks, employee_id, employee_username):
+    """ Writes JSON data to CSV file
+    Args:
+        csv_file_path(str): Path to CSV file
+        tasks(list of dicts): Data to write into CSV file
+        employee_id(int): Employee's id
+        employee_username(str): Employee's username
+    Return:
+        None
+    """
+    # Write tasks to CSV file
+    with open(csv_file_path, mode='w', newline='') as csv_file:
+        writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
+        # Write the data
+        for task in tasks:
+            completion_status = "True" if task.get('completed') else "False"
+            task_title = task.get('title')
+            writer.writerow([employee_id, employee_username,
+                            completion_status, task_title])
 
 
 def main():
@@ -84,24 +92,15 @@ def main():
         return 1
 
     # Get employee's name
-    employee_name = get_employee_name(employee_id)
+    employee_username = get_employee_username(employee_id)
 
     # Fetch employee's tasks
     tasks = get_employee_tasks(employee_id)
     number_of_tasks = len(tasks)
 
-    # Get number of tasks completed by employee
-    tasks_completed = get_tasks_done(tasks)
-    number_of_tasks_completed = len(tasks_completed)
-
-    # Get titles of completed tasks
-    titles_of_completed_tasks = []
-    for task in tasks_completed:
-        titles_of_completed_tasks.append(task.get('title'))
-
-    # Output progress
-    display_task_progress(employee_name, number_of_tasks,
-                          number_of_tasks_completed, titles_of_completed_tasks)
+    # Write data to CSV file
+    path_to_csv = f'{employee_id}.csv'
+    write_data_to_csv(path_to_csv, tasks, employee_id, employee_username)
 
 
 if __name__ == '__main__':
