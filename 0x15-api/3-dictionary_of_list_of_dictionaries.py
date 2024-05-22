@@ -5,107 +5,95 @@ and exports them in CSV format.
 """
 import json
 import requests
-import sys
 
 
-def get_employee_username(employee_id):
-    """ Returns the username of an employee
+def get_all_tasks():
+    """ Returns all tasks
     Args:
-        employee_id(int): Empolyee's id
+        None
     Return:
-        (str): Username of employee
-    """
-    url = 'https://jsonplaceholder.typicode.com/users'
-    try:
-        response = requests.get(f'{url}/{employee_id}')
-        if response.status_code == 200:
-            employee = response.json()
-            return employee.get('username')
-        else:
-            print(f'Error fetching employee: {response.status_code}')
-    except Exception as e:
-        print(e)
-
-
-def get_employee_tasks(employee_id):
-    """ Returns all employees tasks
-    Args:
-        employee_id(int): ID of employee
-    Return:
-        (list of dicts): List of all employee's tasks
+        (list of dicts): List of all tasks or 1 on error
     """
     url = 'https://jsonplaceholder.typicode.com/todos'
-    params = {'userId': employee_id}
     try:
-        response = requests.get(url, params)
+        response = requests.get(url)
         if response.status_code == 200:
             tasks = response.json()
             return tasks
         else:
             print(f"Error fetching employee's tasks: {response.status_code}")
+            return 1
     except Exception as e:
         print(e)
 
 
-def display_task_progress(name, number_of_tasks, number_of_completed_tasks,
-                          titles):
-    """ Prints the task progress of an employee """
-    print(f'Employee {name} is done with tasks', end="")
-    print(f'({number_of_completed_tasks}/{number_of_tasks}):')
-    for title in titles:
-        print(f'\t {title}')
-
-
-def write_data_to_json(json_file_path, tasks, employee_id, employee_username):
-    """ Writes JSON data to CSV file
+def get_all_employees():
+    """ Returns all employees
     Args:
-        json_file_path(str): Path to JSON file
-        tasks(list of dicts): Data to write into CSV file
-        employee_id(int): Employee's id
-        employee_username(str): Employee's username
-    Return:
         None
+    Return:
+        (list of dicts): List of all employees or 1 on error
     """
-    # Put data in specified format
-    data = {}
-    key = employee_id
-    val = []
-    for task in tasks:
-        title = task.get('title')
-        status = task.get('completed')
-        username = employee_username
-        val.append({'task': title, 'completed': status, 'username': username})
-    data[key] = val
+    url = 'https://jsonplaceholder.typicode.com/users'
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            employees = response.json()
+            return employees
+        else:
+            print(f"Error fetching employees: {response.status_code}")
+            return 1
+    except Exception as e:
+        print(e)
+        return 1
 
-    # Dump data in JSON file
-    with open(json_file_path, mode='w') as json_file:
-        json.dump(data, json_file)
+
+def sort_tasks(tasks, users):
+    """ Sort tasks by user
+    Args:
+        tasks(list of dicts): All tasks
+        users(list of dicts): All users
+    Return:
+        (dicts of lists of dicts): Sorted data
+    """
+    sorted_tasks = {}
+
+    for user in users:
+        user_id = user.get('id')
+        username = user.get('username')
+        user_tasks = []
+        for task in tasks:
+            if task.get('userId') == user_id:
+                title = task.get('title')
+                status = task.get('completed')
+                user_tasks.append({'username': username, 'task': title,
+                                  'completed': status})
+        sorted_tasks[user_id] = user_tasks
+
+    return sorted_tasks
 
 
 def main():
     """
-    Fetches an employee's task progress and exports them to a JSON file.
+    Fetches an all tasks sorted by employee and exports them to a JSON file.
     """
-    if len(sys.argv) != 2:
-        print(f'Usage: {sys.argv[0]} <employee_id>')
+    # Get all employees
+    employees = get_all_employees()
+    if employees == 1:
         return 1
 
-    try:
-        employee_id = int(sys.argv[1])
-    except ValueError:
-        print('Invalid employee id')
+    # Get all tasks
+    tasks = get_all_tasks()
+    if tasks == 1:
         return 1
 
-    # Get employee's name
-    employee_username = get_employee_username(employee_id)
+    # Sort tasks by employee
+    sorted_tasks = sort_tasks(tasks, employees)
 
-    # Fetch employee's tasks
-    tasks = get_employee_tasks(employee_id)
-    number_of_tasks = len(tasks)
-
-    # Write data to JSON file
-    path_to_json = f'{employee_id}.json'
-    write_data_to_json(path_to_json, tasks, employee_id, employee_username)
+    # Write sorted tasks to JSON file
+    path_to_json = 'todo_all_employees.json'
+    with open(path_to_json, mode='w') as json_file:
+        json.dump(sorted_tasks, json_file)
 
 
 if __name__ == '__main__':

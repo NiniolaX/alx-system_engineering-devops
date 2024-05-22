@@ -28,7 +28,7 @@ def get_employee_username(employee_id):
 
 
 def get_employee_tasks(employee_id):
-    """ Returns all employees tasks
+    """ Returns all tasks of an employee
     Args:
         employee_id(int): ID of employee
     Return:
