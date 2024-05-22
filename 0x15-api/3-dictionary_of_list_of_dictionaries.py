@@ -47,6 +47,15 @@ def get_employee_tasks(employee_id):
         print(e)
 
 
+def display_task_progress(name, number_of_tasks, number_of_completed_tasks,
+                          titles):
+    """ Prints the task progress of an employee """
+    print(f'Employee {name} is done with tasks', end="")
+    print(f'({number_of_completed_tasks}/{number_of_tasks}):')
+    for title in titles:
+        print(f'\t {title}')
+
+
 def write_data_to_json(json_file_path, tasks, employee_id, employee_username):
     """ Writes JSON data to CSV file
     Args:
