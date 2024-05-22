@@ -36,7 +36,7 @@ def get_employee_tasks(employee_id):
     url = 'https://jsonplaceholder.typicode.com/todos'
     params = {'userId': employee_id}
     try:
-        response.get(url, params)
+        response = requests.get(url, params)
         if response.status_code == 200:
             tasks = response.json()
             return tasks
@@ -55,7 +55,7 @@ def get_tasks_done(tasks):
     """
     tasks_done = []
     for task in tasks:
-        if task.get('completed') == True:
+        if task.get('completed') is True:
             tasks_done.append(task)
     return tasks_done
 
@@ -63,15 +63,15 @@ def get_tasks_done(tasks):
 def display_task_progress(name, number_of_tasks, number_of_completed_tasks,
                           titles):
     """ Prints the task progress of an employee """
-    print(f'Employee {name} is done with tasks(\
-            {number_of_completed_tasks}/{number_of_tasks}):')
+    print(f'Employee {name} is done with tasks', end="")
+    print(f'({number_of_completed_tasks}/{number_of_tasks}):')
     for title in titles:
         print(f'\t {title}')
 
 
 def main():
     """
-    Displays an employees TODO list progress using
+    Displays an employees TODO list progress using a REST API.
     """
     if len(sys.argv) != 2:
         print(f'Usage: {sys.argv[0]} <employee_id>')
@@ -93,6 +93,7 @@ def main():
     # Get number of tasks completed by employee
     tasks_completed = get_tasks_done(tasks)
     number_of_tasks_completed = len(tasks_completed)
+
     # Get titles of completed tasks
     titles_of_completed_tasks = []
     for task in tasks_completed:
@@ -100,7 +101,7 @@ def main():
 
     # Output progress
     display_task_progress(employee_name, number_of_tasks,
-            number_of_tasks_completed, titles_of_completed_tasks)
+                          number_of_tasks_completed, titles_of_completed_tasks)
 
 
 if __name__ == '__main__':
