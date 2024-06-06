@@ -1,13 +1,18 @@
 #!/usr/bin/python3
 """
-Contains a fuunction that returns the number of subscribers to a given
+Contains a function that returns the number of subscribers to a given
 subreddit.
 """
 import requests
 
 
 def number_of_subscribers(subreddit):
-    """ Returns the number of subscribers of a given subreddit """
+    """ Returns the number of subscribers of a given subreddit.
+    Args:
+        subreddit(str): Subreddit
+    Return:
+        (int): Number of subscribers to subreddit or 0 on fail.
+    """
     if subreddit is None or type(subreddit) is not str:
         return 0
 
@@ -22,5 +27,5 @@ def number_of_subscribers(subreddit):
         else:
             return 0
     except Exception as e:
-        print('Error fetching subreddit: {}'.format(e))
+        # print('Error fetching subreddit: {}'.format(e))
         return 0
