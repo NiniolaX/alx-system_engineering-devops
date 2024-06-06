@@ -8,16 +8,16 @@ import requests
 
 def number_of_subscribers(subreddit):
     """ Returns the number of subscribers of a given subreddit """
-    if subreddit is None:
+    if subreddit is None or type(subreddit) is not str:
         return 0
 
     try:
-        url = f'https://www.reddit.com/r/{subreddit}/about.json'
-        headers = {'User-Agent': 'SubscriberCounter/1.0 by dev_niniolax'}
+        url = 'https://www.reddit.com/r/{}/about.json'.format(subreddit)
+        headers = {'User-Agent': '0x16-api_advanced:project (by dev_niniolax)'}
         response = requests.get(url, headers=headers, allow_redirects=False)
         if response.status_code == 200:
-            data = response.json()
-            subscriber_count = data.get('data').get('subscribers')
+            subreddit_data = response.json().get('data')
+            subscriber_count = subreddit_data.get('subscribers')
             return subscriber_count
         else:
             return 0
