@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Contains a function that returns the first 10 hot posts listed for a given
+Contains a function that prints the first 10 hot posts listed for a given
 subreddit.
 """
 import requests
@@ -17,7 +17,7 @@ def top_ten(subreddit):
         print(None)
         return
 
-    url = 'https://www.reddit.com/r/{}/hot.json?limit=10'.format(subreddit)
+    url = f'https://www.reddit.com/r/{subreddit}/hot.json?limit=10'
     headers = {'User-Agent': '0x16-api_advanced:project (by dev_niniolax)'}
 
     try:

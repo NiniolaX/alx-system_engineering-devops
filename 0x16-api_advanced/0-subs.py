@@ -16,13 +16,14 @@ def number_of_subscribers(subreddit):
     if subreddit is None or type(subreddit) is not str:
         return 0
 
+    url = f'https://www.reddit.com/r/{subreddit}/about.json'
+    headers = {'User-Agent': '0x16-api_advanced:project (by dev_niniolax)'}
+
     try:
-        url = 'https://www.reddit.com/r/{}/about.json'.format(subreddit)
-        headers = {'User-Agent': '0x16-api_advanced:project (by dev_niniolax)'}
         response = requests.get(url, headers=headers, allow_redirects=False)
         if response.status_code == 200:
-            subreddit_data = response.json().get('data')
-            subscriber_count = subreddit_data.get('subscribers')
+            data = response.json()
+            subscriber_count = data['data']['subscribers']
             return subscriber_count
         else:
             return 0
