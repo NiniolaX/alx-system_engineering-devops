@@ -21,12 +21,15 @@ def top_ten(subreddit):
     headers = {'User-Agent': '0x16-api_advanced:project (by dev_niniolax)'}
 
     try:
-        response = requests.get(url, headers, allow_redirects=False)
+        response = requests.get(url, headers=headers, allow_redirects=False)
         if response.status_code == 200:
             data = response.json()
-            top_ten = data['data']['children']
-            for item in top_ten:
-                print(item['data']['title'])
+            # Extract top 10 posts
+            top_ten_posts = data['data']['children'][:10]
+            top_ten_titles = [post['data']['title'] for post in top_ten_posts]
+
+            for title in top_ten_titles:
+                print(title)
             return
         else:
             print(None)
