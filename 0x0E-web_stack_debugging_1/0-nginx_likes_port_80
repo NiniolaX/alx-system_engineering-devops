@@ -1,34 +1,10 @@
 #!/usr/bin/env bash
-# Script installs and configure nginx to listen to port 80
-sudo apt update -y
-sudo apt install nginx -y
-sudo apt install -y net-tools
+# Script fixes a server to have nginx installed and configured to listen on port 80
+# Update packages
+sudo apt -y update
 
-# Nginx configuration
-nginx_config="
-server {
-	listen 80 default_server;
-	listen [::]:80 default_server;
+# Intall nginx
+sudo apt -y install nginx
 
-	root /var/wwww;
-	index index.html index.htm index.nginx-debian.html;
-
-	location / {
-		try_files \$uri \$uri/ =404;
-	}
-}
-"
-
-# Check if Nginx is running and listening on port 80
-if ! (sudo netstat -lpn | grep -q nginx | grep -q :80); then
-	echo "Nginx is not listening on port 80"
-	# Echo Nginx configuration to default file
-	echo "$nginx_config" | sudo tee -a /etc/nginx/sites-available/default > /dev/null
-
-	# Restart Nginx
-	sudo service nginx restart
-	sudo ufw allow 'Nginx HTTP'
-	sudo ufw enable
-else
-	echo "Nginx is already listening on port 80"
-fi
+# Start nginx
+sudo service nginx start
